@@ -2,7 +2,7 @@
 Won Top 3 Algorithm for Berkeley's AI competition (Multiagent Pacman)
 
 ## Strategy
-We used, of course, the minimax strategy for both of our agents, this relatively straightforward.
+We used, of course, the minimax with alpha-beta pruning strategy for both of our agents, this relatively straightforward.
 
 ## Offensive Agent (Or, the Greedy Guerilla Tactic):
 
