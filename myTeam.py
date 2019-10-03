@@ -3,13 +3,7 @@
 # Licensing Information:  You are free to use or extend these projects for
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
-# attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
-# 
-# Attribution Information: The Pacman AI projects were developed at UC Berkeley.
-# The core projects and autograders were primarily created by John DeNero
-# (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
-# Student side autograding was added by Brad Miller, Nick Hay, and
-# Pieter Abbeel (pabbeel@cs.berkeley.edu).
+# attribution to UC Berkeley.
 
 
 from captureAgents import CaptureAgent
@@ -19,7 +13,6 @@ import util
 from game import Directions
 from util import nearestPoint
 import game
-# import numpy
 
 #################
 # Team creation #
@@ -44,7 +37,7 @@ def createTeam(firstIndex, secondIndex, isRed,
     behavior is what you want for the nightly contest.
     """
 
-    # The following line is an example only; feel free to change it.
+    # The following line indicates which agent is which (offensive or defensive).
     if not isRed:
         second = 'OffensiveAgent'
         first = 'DefensiveAgent'
@@ -77,7 +70,7 @@ class BetterCaptureAgent(CaptureAgent):
         """
         actions = gameState.getLegalActions(self.index)
 
-        # You can profile your evaluation time by uncommenting these lines
+        # Profile the evaluation time by uncommenting these lines
         # start = time.time()
         values = [self.evaluate(gameState, a) for a in actions]
         # print 'eval time for agent %d: %.4f' % (self.index, time.time() - start)
@@ -122,7 +115,6 @@ class OffensiveAgent(BetterCaptureAgent):
         try to get the Blue side's food
         """
 
-        # successor = self.getSuccessor(gameState, action)
         currState = gameState.getAgentState(self.index)
         currPos = currState.getPosition()
         teamIndex = -1
@@ -132,7 +124,6 @@ class OffensiveAgent(BetterCaptureAgent):
         teamState = gameState.getAgentState(teamIndex)
         teamPos = teamState.getPosition()
 
-        #print(currPos)
         currScore = self.getScore(gameState)
         foodList = self.getFood(gameState)
         foodList = foodList.asList()
@@ -142,8 +133,6 @@ class OffensiveAgent(BetterCaptureAgent):
         ownFood = self.getFoodYouAreDefending(gameState)
         ownFood = ownFood.asList()
 
-        # if numFood == 0:
-        #   return 999999
         oppoIndex = self.getOpponents(gameState)
         oppoPos = []
         oppoState = []
@@ -171,11 +160,6 @@ class OffensiveAgent(BetterCaptureAgent):
             if oppoState[index].isPacman:
               currDist = self.getMazeDistance(currPos, ghost)
               defenDist = min(currDist, defenDist)
-        # if numFood == 1:
-        #   ghostDist = 1
-        # if ghostDist <= 2:
-        #     return ghostDist
-        # scoreChange = 1 / (1 + ghostDist + foodDist)
 
         if originalFood > numFood and ghostDist < 3:
           if ownDist == 0:
@@ -196,132 +180,9 @@ class OffensiveAgent(BetterCaptureAgent):
             actionVal[action] = vt
         return max(actionVal, key=actionVal.get)
 
-
-# class DefensiveAgent(BetterCaptureAgent):
-#     """
-#     A reflex agent that keeps its side Pacman-free. Again,
-#     this is to give you an idea of what a defensive agent
-#     could be like.  It is not the best or only way to make
-#     such an agent.
-#     """
-
-#     def evaluate(self, gameState):
-#         """
-#         Computes a linear combination of features and feature weights
-#         """
-
-#         # successor = self.getSuccessor(gameState, action)
-#         currState = gameState.getAgentState(self.index)
-#         currPos = currState.getPosition()
-#         currScore = self.getScore(gameState)
-#         foodList = gameState.getRedFood()
-#         foodList = foodList.asList()
-#         numFood = len(foodList)
-#         numScare = len(gameState.getCapsules())
-
-#         #print(currPos)
-#         oppoIndex = self.getOpponents(gameState)
-#         oppoPos = []
-#         for index in oppoIndex:
-#             oppoPos.append(gameState.getAgentPosition(index))
-#         # if numFood == 0:
-#         #   return 999999
-#         pacDist = 999999
-#         for oppo in oppoPos:
-#             currDist = self.getMazeDistance(currPos, oppo)
-#             pacDist = min(currDist, pacDist)
-#         # if numFood == 1:
-#         #   ghostDist = 1
-#         if pacDist != 1:
-#             return -pacDist
-#         return 999999
-
-
-
-#     def chooseAction(self, gameState):
-#         """
-#         Picks actions that chase the closed opponent.
-#         """
-#         Agents = range(gameState.getNumAgents())
-#         legalActions = gameState.getLegalActions(self.index)
-#         v = -999999
-#         actionVal = {}
-#         for action in legalActions:
-#             successor = gameState.generateSuccessor(self.index, action)
-#             vt = self.evaluate(successor)
-#             v = max(v, vt)
-#             actionVal[action] = vt
-#         return max(actionVal, key=actionVal.get)
-
-# class DefensiveAgent(BetterCaptureAgent):
-#     """
-#     A reflex agent that keeps its side Pacman-free. Again,
-#     this is to give you an idea of what a defensive agent
-#     could be like.  It is not the best or only way to make
-#     such an agent.
-#     """
-
-#     def evaluate(self, gameState):
-#         """
-#         Computes a linear combination of features and feature weights
-#         """
-
-#         # successor = self.getSuccessor(gameState, action)
-#         currState = gameState.getAgentState(self.index)
-#         currPos = currState.getPosition()
-#         currScore = self.getScore(gameState)
-#         foodList = gameState.getRedFood()
-#         foodList = foodList.asList()
-#         numFood = len(foodList)
-#         numScare = len(gameState.getCapsules())
-
-#         #print(currPos)
-#         oppoIndex = self.getOpponents(gameState)
-#         oppoPos = []
-#         for index in oppoIndex:
-#             oppoPos.append(gameState.getAgentPosition(index))
-#         # if numFood == 0:
-#         #   return 999999
-#         pacDist = []
-
-#         for oppo in oppoPos:
-#             currDist = self.getMazeDistance(currPos, oppo)
-#             pacDist.append(currDist)
-#         # if numFood == 1:
-#         #   ghostDist = 1
-#         #if False not in [i[0] > gameState.data.layout.width // 2 for i in oppoPos]:
-#             #return 999999
-#         return -min(pacDist)
-
-
-
-#     def chooseAction(self, gameState):
-#         """
-#         Picks actions that chase the closed opponent.
-#         """
-#         oppoIndex = self.getOpponents(gameState)
-#         oppoPos = []
-#         for index in oppoIndex:
-#             oppoPos.append(gameState.getAgentPosition(index))
-#         Agents = range(gameState.getNumAgents())
-#         legalActions = gameState.getLegalActions(self.index)
-#         v = -999999
-#         actionVal = {}
-#         for action in legalActions:
-#             successor = gameState.generateSuccessor(self.index, action)
-#             if successor.getAgentPosition(self.index) in oppoPos:
-#                 return action
-#             vt = self.evaluate(successor)
-#             v = max(v, vt)
-#             actionVal[action] = vt
-#         return max(actionVal, key=actionVal.get)
-
 class DefensiveAgent(BetterCaptureAgent):
     """
-    A reflex agent that keeps its side Pacman-free. Again,
-    this is to give you an idea of what a defensive agent
-    could be like.  It is not the best or only way to make
-    such an agent.
+    A reflex agent that keeps its side Pacman-free.
     """
 
     def evaluate(self, gameState):
@@ -338,13 +199,10 @@ class DefensiveAgent(BetterCaptureAgent):
         numFood = len(foodList)
         numScare = len(gameState.getCapsules())
 
-        #print(currPos)
         oppoIndex = self.getOpponents(gameState)
         oppoPos = []
         for index in oppoIndex:
             oppoPos.append(gameState.getAgentPosition(index))
-        # if numFood == 0:
-        #   return 999999
         pacDist = []
         pacDistHere = []
         for oppo in oppoPos:
@@ -352,11 +210,7 @@ class DefensiveAgent(BetterCaptureAgent):
             if oppo[0] < gameState.data.layout.width // 2 - 1:
                 pacDistHere.append(currDist) 
             pacDist.append(currDist)
-            
-        # if numFood == 1:
-        #   ghostDist = 1
-        #if False not in [i[0] > gameState.data.layout.width // 2 for i in oppoPos]:
-            #return 999999
+
         if pacDistHere != []:
             #print(pacDistHere)
             return -min(pacDistHere)
@@ -369,22 +223,30 @@ class DefensiveAgent(BetterCaptureAgent):
         """
         oppoIndex = self.getOpponents(gameState)
         oppoPos = []
+        
         for index in oppoIndex:
             oppoPos.append(gameState.getAgentPosition(index))
+            
         Agents = range(gameState.getNumAgents())
         legalActions = gameState.getLegalActions(self.index)
         v = -999999
         actionVal = {}
+        
         if 1 in [self.getMazeDistance(i, gameState.getAgentPosition(self.index)) for i in oppoPos] and gameState.getAgentPosition(self.index)[0] == (gameState.data.layout.width // 2 - 1):
             return random.choice(legalActions)
+          
         for action in legalActions:
             successor = gameState.generateSuccessor(self.index, action)
+            
             if successor.getAgentPosition(self.index) in oppoPos:
                 return action
+              
             if successor.getAgentPosition(self.index)[0] > (gameState.data.layout.width // 2 - 1):
                 pass
+              
             else:
                 vt = self.evaluate(successor)
                 v = max(v, vt)
                 actionVal[action] = vt
+                
         return max(actionVal, key=actionVal.get)
