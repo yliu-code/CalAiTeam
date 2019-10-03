@@ -2,7 +2,7 @@
 Won Top 3 Algorithm for Berkeley's AI competition (Multiagent Pacman)
 
 ## Strategy
-I used, of course, the minimax with alpha-beta pruning strategy for both of our agents, this relatively straightforward.
+I used, of course, the minimax with alpha-beta pruning strategy for both agents, this relatively straightforward.
 
 ## Offensive Agent (Or, the Greedy Guerilla Tactic):
 
@@ -25,5 +25,5 @@ The stroke of ingenuity that won the game in the end was the thought of alternat
 
 **Important:**
 
-Another lightbulb manifested when I made our defensive agent flaunt and dance near the border (fluctuating between 1 or 2 steps away from the center line). This angered the enemy and lured them to our side, putting them at the mercy of our defensive chomps. This solved the issue of both side’s agents frozen in stalemate at the front lines and also sometimes tricked the enemy’s defensive agents to suicide and respawn from the starting point as well, giving our pacman time to forage.
+Another lightbulb manifested when I made my defensive agent flaunt and dance near the border (fluctuating between 1 or 2 steps away from the center line). This angered the enemy and lured them to our side, putting them at the mercy of our defensive chomps. This solved the issue of both side’s agents frozen in stalemate at the front lines and also sometimes tricked the enemy’s defensive agents to suicide and respawn from the starting point as well, giving my pacman time to forage.
 
